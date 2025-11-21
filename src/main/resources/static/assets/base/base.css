@@ -1,0 +1,78 @@
+:root {
+    --color-primary: var(--wa-color-brand-60);
+    --color-bg: var(--wa-color-brand-95);
+    --color-bg-gray: var(--wa-color-gray-90);
+    --radius-base: var(--wa-border-radius-s);
+    --spacing: var(--wa-space-m);
+}
+
+.product-table th,
+.product-table td {
+    padding: calc(var(--spacing) * 0.75);
+    text-align: left;
+}
+
+.product-table thead {
+    background: var(--color-primary);
+    color: var(--color-bg);
+}
+
+.product-table tbody tr:hover {
+    background: var(--wa-color-neutral-90);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    padding-bottom: var(--spacing);
+}
+
+header {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    padding: calc(var(--spacing) * 0.75) 0;
+}
+
+.content-container {
+    height: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding: var(--spacing);
+}
+
+.dialog-create-product wa-input {
+    margin-bottom: var(--wa-space-xs);
+}
+
+wa-details {
+    padding: var(--wa-space-xs) 0;
+}
+
+.variant-block {
+    border: var(--wa-border-width-s	) var(--wa-border-style)  var(--wa-color-gray-90);
+    border-radius: var(--radius-base);
+    margin-bottom: var(--wa-space-xs);
+    padding: var(--wa-space-m);
+    position: relative;
+}
+
+.image-block {
+    border: var(--wa-border-width-s	) var(--wa-border-style)  var(--wa-color-gray-90);
+    border-radius: var(--radius-base);
+    margin-bottom: var(--wa-space-xs);
+    padding: var(--wa-space-m);
+    position: relative;
+
+}
+
+.empty-space {
+    align-self: stretch;
+    background-color: var(--color-bg-gray);
+    padding: var(--wa-space-2xl);
+}
