@@ -39,8 +39,8 @@ class ProductService(
         variantRepository.saveAll(allVariantsToSave)
     }
 
-    fun searchByTitle(keyword: String): List<ProductDTO> {
-        val found = productRepository.findByTitleContainingIgnoreCase(keyword)
+    fun search(keyword: String, productType: String?): List<ProductDTO> {
+        val found = productRepository.findByTitleContainingIgnoreCaseAndProductType(keyword, productType)
         return found.map { it.toDTO() }
     }
 

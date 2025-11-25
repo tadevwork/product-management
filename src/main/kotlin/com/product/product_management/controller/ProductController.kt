@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 class ProductController(
@@ -50,10 +51,11 @@ class ProductController(
 
     @GetMapping("/products/search")
     fun searchProducts(
-        @RequestParam keyword: String,
+        @RequestParam(required = false) keyword: String = "",
+        @RequestParam(required = false) productType: String?,
         model: Model
     ): String {
-        val results = productService.searchByTitle(keyword)
+        val results = productService.search(keyword, productType)
         model.addAttribute("products", results)
         model.addAttribute("productTypes", ProductType.entries.toTypedArray())
         return "index :: #product-table"
@@ -69,5 +71,13 @@ class ProductController(
         model.addAttribute("products", productService.findAll())
         model.addAttribute("productTypes", ProductType.entries.toTypedArray())
         return "index :: #product-table"
+    }
+
+    @ResponseBody
+    @GetMapping("/products/suggestions")
+    fun suggestTitles(@RequestParam keyword: String): List<String> {
+        if (keyword.isBlank()) return emptyList()
+        val products = productService.search(keyword, null)
+        return products.sortedBy { it.title }.map { it.title }.toSet().take(10)
     }
 }

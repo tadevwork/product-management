@@ -7,25 +7,34 @@
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/assets/base/base.css}">
     <script type="module" th:src="@{/assets/base/product.js}"></script>
+    <script type="module" th:src="@{/assets/components/search-autocomplete.js}"></script>
 
 </head>
 <body hx-boost="true">
 <header>
-    <h1 style="text-align: center">Products Management</h1>
+    <h2>Products Management</h2>
 </header>
 <main class="content-container">
     <wa-card>
         <h3 slot="header">Products Management</h3>
         <div slot="header-actions">
             <div class="wa-cluster">
-                <wa-input id="search-input"
-                          placeholder="Search by title..."
-                          name="keyword"
-                          hx-get="/products/search"
-                          hx-trigger="keyup[key=='Enter'] from:#search-input"
-                          hx-target="#product-section"
-                          hx-swap="innerHTML">
-                </wa-input>
+                <search-autocomplete
+                        suggest-url="/products/suggestions"
+                        search-url="/products/search"
+                        htmx-target="#product-section">
+                </search-autocomplete>
+                <wa-dropdown>
+                    <wa-button appearance="filled-outlined" variant="brand" slot="trigger" with-caret>Product Types</wa-button>
+                    <wa-dropdown-item
+                            th:each="type : ${productTypes}"
+                            th:value="${type}" th:text="${type}"
+                            th:hx-get="@{/products/search(productType=${type})}"
+                            hx-target="#product-section"
+                            hx-swap="innerHTML"
+                    >
+                    </wa-dropdown-item>
+                </wa-dropdown>
                 <wa-button appearance="filled-outlined" variant="brand"
                            hx-get="/products"
                            hx-target="#product-section"
@@ -67,12 +76,14 @@
                             </wa-button>
                         </td>
 
-                    </tr>
-                    </tbody>
-                </table>
-                <div th:if="${products  == null || products.size() == 0}">
-                    <div class="empty-space wa-stack wa-align-items-center">
-                        <h3>No Product Available</h3>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div th:if="${products  == null || products.size() == 0}">
+                            <div class="empty-space wa-stack wa-align-items-center">
+                                <h3>No Product Available</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </wa-scroller>

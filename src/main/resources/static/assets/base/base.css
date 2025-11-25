@@ -21,12 +21,6 @@
     background: var(--wa-color-neutral-90);
 }
 
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
     font-family: 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
@@ -34,14 +28,16 @@ body {
 }
 
 header {
-    background: var(--color-primary);
-    color: var(--color-bg);
+    color: var(--color-primary);
     padding: calc(var(--spacing) * 0.75) 0;
+    text-align: start;
+    background: var(--wa-color-brand-95);
+    border: var(--wa-border-width-s	) var(--wa-border-style)  var(--wa-color-gray-80);
 }
 
 .content-container {
     height: 100%;
-    max-width: 900px;
+    max-width: 1200px;
     margin: auto;
     padding: var(--spacing);
 }
